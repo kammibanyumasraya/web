@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAMMI Banyumas Raya | Membangun Peradaban</title>
+    <title>KAMMI Banyumas Raya | Idealis, Estetik & Berdampak</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts Premium: Plus Jakarta Sans & Syne -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,14 +18,17 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#064E3B',
-                            light: '#059669',
-                            accent: '#D4AF37',
-                            bg: '#F9FAFB'
+                            dark: '#052E23',     /* Deep Forest Emerald */
+                            emerald: '#059669',  /* Soft Modern Emerald */
+                            lightBg: '#F8FAFC',  /* Ultra Clean Slate Light */
+                            accent: '#F59E0B',   /* Soft Warm Amber */
+                            gold: '#D4AF37',     /* Gold Accent */
+                            cardBg: '#FFFFFF',
+                            tagBg: '#ECFDF5'
                         }
                     },
                     fontFamily: {
-                        heading: ['"DM Serif Display"', 'serif'],
+                        heading: ['"Syne"', 'sans-serif'],
                         body: ['"Plus Jakarta Sans"', 'sans-serif'],
                     }
                 }
@@ -33,422 +36,931 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #059669; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #064E3B; }
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Modern Glassmorphism & Readability Enhancements */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #059669; border-radius: 99px; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 25%, rgba(5, 46, 35, 0.25) 0%, rgba(248, 250, 252, 0.95) 75%);
+        }
+
+        .text-readable-shadow {
+            text-shadow: 0 2px 10px rgba(5, 46, 35, 0.12);
+        }
+
+        .badge-rounded {
+            border-radius: 9999px;
+            letter-spacing: 0.05em;
+        }
+
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(16px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Pill Tab Active Indicator */
+        .tab-btn.active {
+            background-color: #052E23;
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(5, 46, 35, 0.15);
+        }
     </style>
 </head>
-<body class="font-body bg-brand-bg text-gray-800 antialiased selection:bg-brand-dark selection:text-brand-accent relative">
+<body class="font-body bg-brand-lightBg text-slate-800 antialiased selection:bg-brand-emerald selection:text-white relative pb-20">
 
-    <!-- 1. Sticky Header / Navbar -->
-    <header class="fixed w-full z-40 bg-white/90 backdrop-blur-md shadow-sm transition-all border-b border-gray-100 id-header">
+    <!-- Toast Notification System -->
+    <div id="toast" class="fixed top-6 right-5 z-[120] bg-brand-dark text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-x-full transition-transform duration-300 border border-emerald-500/30">
+        <div class="w-7 h-7 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">✓</div>
+        <span id="toast-message" class="text-xs font-semibold">Pesan Notifikasi</span>
+    </div>
+
+    <!-- 1. Header Sticky Modern Minimalist Navbar -->
+    <header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo Utama -->
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <img src="./12.png" alt="Logo KAMMI Banyumas Raya" onerror="this.outerHTML='<span class=&quot;font-heading text-2xl text-brand-dark&quot;>KAMMI Banyumas Raya</span>'" class="h-16 w-auto object-contain drop-shadow-sm">
-                </div>
-                <nav class="hidden md:flex space-x-8 items-center">
-                    <a href="#beranda" class="text-sm font-semibold text-gray-700 hover:text-brand-dark transition">Beranda</a>
-                    <a href="#profil" class="text-sm font-semibold text-gray-700 hover:text-brand-dark transition">Profil</a>
-                    <a href="#komisariat" class="text-sm font-semibold text-gray-700 hover:text-brand-dark transition">Komisariat</a>
-                    <a href="#media" class="text-sm font-semibold text-gray-700 hover:text-brand-dark transition">Media</a>
-                    <a href="#rekrutmen" class="px-5 py-2.5 rounded-full bg-brand-dark text-white text-sm font-semibold hover:bg-brand-light shadow-md hover:shadow-lg transition-all duration-300">Gabung Kami</a>
+                <!-- Brand Identity -->
+                <a href="#beranda" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-brand-dark flex items-center justify-center text-brand-gold font-heading font-extrabold text-xl shadow-md border border-brand-gold/30">
+                        K
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold uppercase tracking-widest text-brand-emerald">Banyumas Raya</span>
+                        <span class="block font-heading font-extrabold text-lg text-brand-dark leading-none">KAMMI.ORG</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation (Pill Style) -->
+                <nav class="hidden md:flex items-center space-x-1 bg-slate-100/90 p-1.5 rounded-full border border-slate-200/60">
+                    <a href="#beranda" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-dark transition rounded-full">Beranda</a>
+                    <a href="#dna-quiz" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-dark transition rounded-full">Kader DNA Quiz</a>
+                    <a href="#komisariat" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-dark transition rounded-full">Cabang & Komsat</a>
+                    <a href="#lookbook" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-dark transition rounded-full">Lookbook Aksi</a>
+                    <a href="#media" class="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-dark transition rounded-full">Ruang Bara</a>
                 </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="#rekrutmen" class="px-6 py-2.5 rounded-full bg-brand-dark text-white text-xs font-bold hover:bg-brand-emerald shadow-md transition-all duration-300">
+                        Gabung DM 1 &rarr;
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-brand-dark focus:outline-none">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <button id="mobile-menu-btn" class="text-slate-800 hover:text-brand-emerald focus:outline-none p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
-            <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#beranda" class="block px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-50 rounded-md">Beranda</a>
-                <a href="#profil" class="block px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-50 rounded-md">Profil</a>
-                <a href="#komisariat" class="block px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-50 rounded-md">Komisariat</a>
-                <a href="#media" class="block px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-50 rounded-md">Media</a>
-                <a href="#rekrutmen" class="block mt-4 text-center px-4 py-3 rounded-md bg-brand-dark text-white font-semibold">Gabung Kami</a>
-            </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 shadow-xl px-4 pt-3 pb-6 space-y-2">
+            <a href="#beranda" class="block px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 rounded-xl">Beranda</a>
+            <a href="#dna-quiz" class="block px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 rounded-xl">Kader DNA Quiz</a>
+            <a href="#komisariat" class="block px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 rounded-xl">Komisariat</a>
+            <a href="#lookbook" class="block px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 rounded-xl">Lookbook Aksi</a>
+            <a href="#media" class="block px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 rounded-xl">Ruang Bara</a>
+            <a href="#rekrutmen" class="block mt-4 text-center px-4 py-3 rounded-full bg-brand-dark text-white font-bold text-xs">Gabung DM 1 Sekarang</a>
         </div>
     </header>
 
-    <!-- 2. Hero Section Dinamis -->
-    <section id="beranda" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80" alt="Kampus Background" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-brand-dark/80 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent"></div>
-        </div>
-        <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto mt-16">
-            <span class="text-brand-accent font-semibold tracking-widest uppercase text-sm mb-4 block">Kesatuan Aksi Mahasiswa Muslim Indonesia</span>
-            <h1 class="text-5xl md:text-7xl font-heading text-white mb-6 leading-tight drop-shadow-lg">
-                KAMMI <br/><span class="text-brand-accent">Banyumas Raya</span>
+    <!-- 2. Hero Section (Enhanced Typography Contrast & Readability) -->
+    <section id="beranda" class="relative pt-32 pb-20 md:pt-42 md:pb-28 overflow-hidden hero-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <!-- Pill Sub-heading -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-brand-dark font-extrabold text-xs uppercase tracking-widest mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span> FOR EVERY STUDENT, FOR EVERY MOVE
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold text-brand-dark tracking-tight leading-[1.12] mb-6 max-w-4xl mx-auto text-readable-shadow">
+                Ruang Pergerakan <br class="hidden sm:block"/> Mahasiswa <span class="text-brand-emerald underline decoration-emerald-400 underline-offset-8">Banyumas Raya</span>
             </h1>
-            <p class="mt-4 text-xl md:text-2xl text-gray-200 font-light mb-10">
-                Membangun peradaban dari jantung Banyumas Raya. Bergerak bersama merangkai karya untuk agama dan bangsa.
+
+            <p class="text-slate-700 text-base md:text-lg font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+                Platform resmi Kesatuan Aksi Mahasiswa Muslim Indonesia. Temukan potensi kepemimpinan, karya ilmiah, dan ikatan ukhuwah estetik di seluruh kampus Banyumas Raya.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#rekrutmen" class="px-8 py-4 rounded-full bg-brand-accent text-brand-dark text-lg font-bold hover:bg-yellow-400 hover:-translate-y-1 transition-all duration-300 shadow-xl">
-                    Gabung Bersama Kami
+
+            <!-- Quick Action Grid Options -->
+            <div class="flex flex-wrap items-center justify-center gap-3 max-w-xl mx-auto mb-14">
+                <a href="#dna-quiz" class="px-6 py-3.5 rounded-full bg-brand-dark text-white font-bold text-xs hover:bg-brand-emerald transition shadow-lg shadow-brand-dark/15">
+                    ✨ CEK KADER DNA QUIZ
                 </a>
-                <a href="#profil" class="px-8 py-4 rounded-full bg-transparent border-2 border-white text-white text-lg font-bold hover:bg-white hover:text-brand-dark transition-all duration-300">
-                    Kenali Lebih Dekat
+                <a href="#rekrutmen" class="px-6 py-3.5 rounded-full bg-white border border-slate-300 text-brand-dark font-bold text-xs hover:bg-slate-50 transition shadow-sm">
+                    RESERVASI DAUROH MARHALAH 1
+                </a>
+                <a href="#komisariat" class="px-6 py-3.5 rounded-full bg-emerald-100 text-brand-dark font-bold text-xs hover:bg-emerald-200 transition">
+                    PETA CABANG KOMISARIAT &rarr;
                 </a>
             </div>
-        </div>
-    </section>
 
-    <!-- 3. Sambutan Ketua Daerah -->
-    <section id="profil" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <img id="render-welcome-img" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" alt="Ketua Daerah" class="rounded-2xl shadow-2xl relative z-10 object-cover aspect-[4/5] w-full max-w-md mx-auto lg:mx-0">
-                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand-accent/20 rounded-full blur-3xl z-0"></div>
-                    <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-brand-dark/10 rounded-full blur-3xl z-0"></div>
-                </div>
-                <div class="space-y-6">
-                    <h4 class="text-brand-accent font-bold uppercase tracking-widest text-sm">Sambutan Ketua Daerah</h4>
-                    <h2 class="text-4xl font-heading text-brand-dark leading-tight">Merajut Ukhuwah, Mengukir Sejarah di Banyumas Raya</h2>
-                    <p id="render-welcome-text" class="text-gray-600 leading-relaxed text-lg italic">
-                        "Selamat datang di portal resmi KAMMI Banyumas Raya. Kami hadir sebagai wadah perjuangan..."
-                    </p>
-                    <div class="pt-4 border-t border-gray-100">
-                        <p id="render-welcome-name" class="font-bold text-gray-900 text-xl font-heading">Fulan bin Fulan</p>
-                        <p id="render-welcome-period" class="text-brand-light font-medium">Ketua Umum KAMMI Banyumas Raya 2024-2025</p>
+            <!-- Hero Lookbook Carousel Preview Banner -->
+            <div class="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-white/60 group">
+                <img id="render-hero-banner" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80" alt="KAMMI Movement Lookbook" class="w-full h-[320px] sm:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-brand-dark/30 to-transparent flex items-end p-6 sm:p-10 text-left">
+                    <div class="text-white max-w-lg">
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/30 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-brand-gold border border-emerald-400/40 mb-3 inline-block">Featured Movement</span>
+                        <h3 class="text-2xl font-heading font-bold text-white mb-2">Membangun Karakter Akademisi Muslim Berdampak</h3>
+                        <p class="text-xs text-slate-200 leading-relaxed">Simak galeri editorial dan rekam jejak aksi mahasiswa di wilayah Purwokerto, Wonosobo, Cilacap, dan Purbalingga.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Portal Komisariat -->
-    <section id="komisariat" class="py-20 bg-brand-bg relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-heading text-brand-dark mb-4">Direktori Komisariat</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Pusat pergerakan kami tersebar di berbagai kampus. Temukan dan bergabunglah dengan komisariat terdekat dari kampusmu.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2 cursor-pointer">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-dark/5 rounded-bl-full transition-all duration-500 group-hover:scale-150 group-hover:bg-brand-dark/10"></div>
-                    <div class="w-16 h-16 bg-brand-dark rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:rotate-6 transition-transform">
-                        <svg class="w-8 h-8 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-heading text-gray-900 mb-3 group-hover:text-brand-dark transition-colors">Komisariat<br>Khalid Bin Walid</h3>
-                    <p class="text-gray-600 mb-6"><strong>Menaungi Mahasiswa UIN SAIZU.</strong> Wadah bagi kader-kader progresif untuk bergerak bersama di lingkungan kampus dan sekitarnya.</p>
-                </div>
-                <div class="group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2 cursor-pointer">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-bl-full transition-all duration-500 group-hover:scale-150 group-hover:bg-brand-accent/20"></div>
-                    <div class="w-16 h-16 bg-brand-accent rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:rotate-6 transition-transform">
-                        <svg class="w-8 h-8 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-heading text-gray-900 mb-3 group-hover:text-brand-dark transition-colors">Komisariat<br>Soedirman</h3>
-                    <p class="text-gray-600 mb-6"><strong>Menaungi Mahasiswa UNSOED.</strong> Pusat pergerakan intelektual dan dakwah kampus yang dinamis, solid, dan berintegritas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- 3. Kader DNA Quiz Interactive Section -->
+    <section id="dna-quiz" class="py-20 bg-emerald-950 text-white relative overflow-hidden">
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-emerald/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700 text-emerald-300 font-bold text-[11px] uppercase tracking-widest inline-block mb-4">
+                Fitur Interaktif
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-heading font-extrabold mb-4">Temukan Peran DNA Pergerakanmu</h2>
+            <p class="text-slate-300 text-sm md:text-base max-w-xl mx-auto mb-10">Jawab 3 pertanyaan singkat ini untuk mengetahui fokus bidang kontribusi yang paling pas dengan kepribadian dan passion kamu!</p>
 
-    <!-- 5. Berita & Ruang Bara -->
-    <section id="media" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b pb-6">
-                <div>
-                    <h2 class="text-4xl font-heading text-brand-dark">Kabar & Ruang Bara</h2>
-                    <p class="text-gray-500 mt-2">Dinamika pergerakan dan gagasan tertulis kader KAMMI.</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="render-news-grid"></div>
-            <div class="mt-8">
-                <article class="group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 bg-brand-dark text-white relative h-64">
-                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
-                    <div class="p-6 relative z-10 h-full flex flex-col justify-center items-center text-center">
-                        <div class="flex items-center gap-2 mb-4">
-                            <svg class="w-6 h-6 text-brand-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
-                            <span class="font-bold tracking-wider text-brand-accent uppercase text-sm">Ruang Bara Terintegrasi</span>
+            <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-white/15 max-w-2xl mx-auto text-left shadow-2xl">
+                <div id="quiz-container">
+                    <div id="quiz-step-1" class="space-y-4">
+                        <span class="text-xs font-bold text-emerald-400">PERTANYAAN 1 DARI 3</span>
+                        <h3 class="text-xl font-heading font-bold text-white">Apa aktivitas kampus yang paling kamu nikmati?</h3>
+                        <div class="grid grid-cols-1 gap-3 pt-2">
+                            <button onclick="nextQuiz(1, 'humas')" class="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-600/30 hover:border-emerald-400 transition text-xs font-medium">
+                                📸 Desain grafis, nulis konten, kelola media sosial & public speaking.
+                            </button>
+                            <button onclick="nextQuiz(1, 'sospol')" class="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-600/30 hover:border-emerald-400 transition text-xs font-medium">
+                                📢 Diskusi isu publik, advokasi masyarakat, dan kajian ilmiah.
+                            </button>
+                            <button onclick="nextQuiz(1, 'kaderisasi')" class="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-600/30 hover:border-emerald-400 transition text-xs font-medium">
+                                🤝 Bikin event mentoring, keakraban, dan ngobrol santai peradaban.
+                            </button>
                         </div>
-                        <h3 class="text-2xl font-heading font-bold mb-2">Membaca Ulang Arah Gerak Mahasiswa</h3>
-                        <p class="text-gray-300 text-sm mb-6 max-w-xl">Ditarik secara otomatis dari RSS Feed ruangbara.substack.com menyajikan opini tajam cendekiawan muda KAMMI.</p>
-                        <a href="#" class="inline-flex items-center bg-white text-brand-dark px-6 py-2 rounded-full text-sm font-bold hover:bg-brand-accent transition">Buka Substack</a>
                     </div>
-                </article>
+
+                    <div id="quiz-step-2" class="space-y-4 hidden">
+                        <span class="text-xs font-bold text-emerald-400">PERTANYAAN 2 DARI 3</span>
+                        <h3 class="text-xl font-heading font-bold text-white">Gaya penyampaian gagasan favoritmu seperti apa?</h3>
+                        <div class="grid grid-cols-1 gap-3 pt-2">
+                            <button onclick="nextQuiz(2, 'humas')" class="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-600/30 hover:border-emerald-400 transition text-xs font-medium">
+                                🎨 Estetik visual, artikel Substack, dan video reels kreatif.
+                            </button>
+                            <button onclick="nextQuiz(2, 'sospol')" class="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-600/30 hover:border-emerald-400 transition text-xs font-medium">
+                                📜 Press release tajam, riset kebijakan, dan aksi lapangan.
+                            </button>
+                            <button onclick="nextQuiz(2, 'kaderisasi')" class="w-full text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-600/30 hover:border-emerald-400 transition text-xs font-medium">
+                                💡 Forum diskusi lingkaran kecil (halqah), training, dan leadership camp.
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-result" class="hidden text-center space-y-4 py-4">
+                        <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 text-3xl flex items-center justify-center mx-auto mb-2 border border-emerald-400/40">✨</div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block">Hasil Analisis DNA Kamu:</span>
+                        <h3 id="quiz-result-title" class="text-2xl font-heading font-bold text-white">Bidang Humas & Media Creative</h3>
+                        <p id="quiz-result-desc" class="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">Kamu sangat cocok berada di garis depan publikasi opini visual, menyalurkan ide kreatif lewat Ruang Bara Substack & media KAMMI!</p>
+                        <button onclick="resetQuiz()" class="mt-4 px-6 py-2.5 rounded-full bg-white text-brand-dark font-bold text-xs hover:bg-emerald-400 transition">Ulangi Quiz</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 6. Galeri Infografis Masonry -->
-    <section class="py-20 bg-gray-50 border-t border-gray-100">
+    <!-- 4. Direktori Cabang & Komisariat -->
+    <section id="komisariat" class="py-24 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-brand-emerald font-bold text-xs uppercase tracking-widest block mb-2">Jaringan Pergerakan Lokal</span>
+                    <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-brand-dark">Direktori Cabang & Komisariat</h2>
+                </div>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-md mt-2 md:mt-0">Temukan pangkalan jaringan KAMMI terdekat di kampus-kampus Banyumas Raya.</p>
+            </div>
+
+            <!-- Branch Grid Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Branch Card 1 -->
+                <div class="bg-brand-lightBg rounded-3xl p-8 border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-dark text-brand-gold flex items-center justify-center font-heading font-extrabold text-xl shadow">
+                                KBW
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-brand-emerald text-[10px] font-bold">Purwokerto</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-900 group-hover:text-brand-emerald transition mb-1">Komsat Khalid Bin Walid</h3>
+                        <p class="text-xs font-semibold text-brand-emerald mb-4">Basis: UIN SAIZU Purwokerto</p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-6">Pusat pembinaan mahasiswa muslim UIN SAIZU yang aktif mencetak pemimpin berkarakter Rabbani dan progresif.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="openKomisariatModal('Khalid Bin Walid', 'UIN SAIZU Purwokerto', 'https://wa.me/6281234567890', 'https://kammibanyumas.github.io/komsat-khalid')" class="flex-1 py-3 rounded-2xl bg-white text-slate-700 font-bold text-xs border border-slate-200 hover:bg-slate-100 transition shadow-sm">
+                            Ringkasan Info
+                        </button>
+                        <a href="https://kammibanyumas.github.io/komsat-khalid" target="_blank" class="flex-1 text-center py-3 rounded-2xl bg-brand-dark text-white font-bold text-xs hover:bg-brand-emerald transition shadow">
+                            Subsite &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Branch Card 2 -->
+                <div class="bg-brand-lightBg rounded-3xl p-8 border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-emerald text-white flex items-center justify-center font-heading font-extrabold text-xl shadow">
+                                UNS
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-brand-emerald text-[10px] font-bold">Purwokerto</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-900 group-hover:text-brand-emerald transition mb-1">Komisariat Soedirman</h3>
+                        <p class="text-xs font-semibold text-brand-emerald mb-4">Basis: Universitas Jenderal Soedirman (UNSOED)</p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-6">Pusat kajian wacana publik & advokasi sains-teknologi akademisi UNSOED dalam merespons dinamika sosial kebangsaan.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="openKomisariatModal('Soedirman', 'Universitas Jenderal Soedirman', 'https://wa.me/6281234567890', 'https://kammibanyumas.github.io/komsat-soedirman')" class="flex-1 py-3 rounded-2xl bg-white text-slate-700 font-bold text-xs border border-slate-200 hover:bg-slate-100 transition shadow-sm">
+                            Ringkasan Info
+                        </button>
+                        <a href="https://kammibanyumas.github.io/komsat-soedirman" target="_blank" class="flex-1 text-center py-3 rounded-2xl bg-brand-dark text-white font-bold text-xs hover:bg-brand-emerald transition shadow">
+                            Subsite &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Branch Card 3 -->
+                <div class="bg-brand-lightBg rounded-3xl p-8 border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-heading font-extrabold text-xl shadow">
+                                UMP
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold">Purwokerto</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-900 group-hover:text-brand-emerald transition mb-1">Komsat Al-Aqsha UMP</h3>
+                        <p class="text-xs font-semibold text-brand-emerald mb-4">Basis: Universitas Muhammadiyah Purwokerto</p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-6">Komisariat pelopor kewirausahaan sosial dan jaringan aksi mahasiswa kampus UMP.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="openKomisariatModal('Al-Aqsha UMP', 'Universitas Muhammadiyah Purwokerto', 'https://wa.me/6281234567890', '#')" class="flex-1 py-3 rounded-2xl bg-white text-slate-700 font-bold text-xs border border-slate-200 hover:bg-slate-100 transition shadow-sm">
+                            Ringkasan Info
+                        </button>
+                        <a href="#" class="flex-1 text-center py-3 rounded-2xl bg-brand-dark text-white font-bold text-xs hover:bg-brand-emerald transition shadow">
+                            Subsite &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Interactive Lookbook Grid -->
+    <section id="lookbook" class="py-24 bg-brand-lightBg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading text-brand-dark mb-4">Galeri Infografis</h2>
-                <p class="text-gray-500">Visualisasi data, sikap, dan dokumentasi pergerakan.</p>
+                <span class="text-brand-emerald font-bold text-xs uppercase tracking-widest block mb-2">Editorial Grid & Gallery</span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-extrabold text-brand-dark">Lookbook Pergerakan</h2>
+                <p class="text-slate-500 text-xs sm:text-sm max-w-lg mx-auto mt-2">Dokumentasi estetis aksi, infografis publikasi, dan narasi perjuangan mahasiswa muslim.</p>
+                
+                <!-- Category Filter Pills -->
+                <div class="flex flex-wrap justify-center gap-2 mt-8" id="lookbook-filters">
+                    <button onclick="filterGallery('all')" class="tab-btn active px-5 py-2 rounded-full text-xs font-bold transition border border-slate-200">Semua Lookbook</button>
+                    <button onclick="filterGallery('aksi')" class="tab-btn px-5 py-2 rounded-full text-xs font-bold transition border border-slate-200 bg-white text-slate-600 hover:bg-slate-100">Aksi & Audiensi</button>
+                    <button onclick="filterGallery('infografis')" class="tab-btn px-5 py-2 rounded-full text-xs font-bold transition border border-slate-200 bg-white text-slate-600 hover:bg-slate-100">Infografis Policy</button>
+                    <button onclick="filterGallery('dm1')" class="tab-btn px-5 py-2 rounded-full text-xs font-bold transition border border-slate-200 bg-white text-slate-600 hover:bg-slate-100">Dauroh Marhalah</button>
+                </div>
             </div>
-            <div class="columns-2 md:columns-3 lg:columns-4 gap-4 max-w-6xl mx-auto" id="render-gallery-grid"></div>
+
+            <!-- Masonry-Style Gallery Cards -->
+            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6" id="render-gallery-grid"></div>
         </div>
     </section>
 
-    <!-- 7. Portal Rekrutmen -->
-    <section id="rekrutmen" class="py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-brand-dark">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-brand-light opacity-20 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-            <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-accent opacity-20 rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
+    <!-- 6. Kabar & Ruang Bara (Integrasi Substack Editorial Style) -->
+    <section id="media" class="py-24 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 pb-6 border-b border-slate-100">
+                <div>
+                    <span class="text-brand-emerald font-bold text-xs uppercase tracking-widest block mb-1">Official News & Publication</span>
+                    <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-brand-dark">Kabar & Opini Peradaban</h2>
+                </div>
+                <a href="https://ruangbara.substack.com" target="_blank" class="mt-4 md:mt-0 px-6 py-2.5 rounded-full bg-amber-500/10 text-amber-800 font-bold text-xs border border-amber-300 hover:bg-amber-500 hover:text-white transition">
+                    Kunjungi Ruang Bara Substack &rarr;
+                </a>
+            </div>
+
+            <!-- News Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="render-news-grid"></div>
+
+            <!-- Banner Ruang Bara Substack Integration -->
+            <div class="rounded-3xl bg-brand-dark text-white p-8 md:p-12 relative overflow-hidden shadow-2xl border border-emerald-800">
+                <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-brand-emerald/30 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                    <div class="lg:col-span-2 space-y-3">
+                        <span class="px-3 py-1 rounded-full bg-amber-400 text-brand-dark text-[10px] font-bold uppercase tracking-wider inline-block">Substack Publication Feed</span>
+                        <h3 class="text-2xl sm:text-4xl font-heading font-extrabold">Jurnalisme Kritis Kader: Ruang Bara</h3>
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-xl">
+                            Wadah gagasan cendekiawan muda KAMMI Banyumas Raya. Berlangganan gratis untuk mendapatkan rilis opini, esai peradaban, dan analisis isu publik langsung di email kamu.
+                        </p>
+                    </div>
+                    <div class="flex lg:justify-end">
+                        <a href="https://ruangbara.substack.com" target="_blank" class="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-brand-emerald hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition duration-300">
+                            Baca Artikel di Substack &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span class="text-brand-accent font-bold tracking-widest uppercase text-sm mb-4 block">Mari Bergabung Bersama Barisan</span>
-            <h2 class="text-4xl md:text-5xl font-heading text-white mb-6">Open Recruitment <br> Dauroh Marhalah 1 (DM 1)</h2>
-            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-                Saatnya kamu mengambil peran! Asah potensi diri dan perkaya wawasan keislaman bersama KAMMI Banyumas Raya.
-            </p>
-            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl mb-8 max-w-3xl mx-auto shadow-2xl">
-                <h3 class="text-2xl font-bold text-white mb-6">Formulir Prapendaftaran</h3>
-                <form id="form-rekrutmen" class="space-y-4 text-left">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    </section>
+
+    <!-- 7. Form Booking / Reservasi DM 1 -->
+    <section id="rekrutmen" class="py-24 bg-brand-lightBg relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-200/80">
+                <div class="text-center max-w-xl mx-auto mb-10">
+                    <span class="px-4 py-1.5 rounded-full bg-emerald-100 text-brand-emerald font-bold text-[10px] uppercase tracking-widest inline-block mb-3">
+                        Online Booking Portal
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-brand-dark mb-3">Reservasi Pendaftaran DM 1</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm">Isi formulir prapendaftaran Dauroh Marhalah 1. Pilih pangkalan komisariat terdekat dengan kampus kamu!</p>
+                </div>
+
+                <form id="form-rekrutmen" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-gray-300 text-sm mb-2">Nama Lengkap</label>
-                            <input type="text" id="reg-name" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-accent" placeholder="Masukkan nama">
+                            <label class="block text-slate-700 text-xs font-bold mb-1.5">Nama Lengkap</label>
+                            <input type="text" id="reg-name" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:ring-2 focus:ring-brand-emerald outline-none" placeholder="Ahmad Abdullah">
                         </div>
                         <div>
-                            <label class="block text-gray-300 text-sm mb-2">Asal Kampus</label>
-                            <input type="text" id="reg-campus" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-accent" placeholder="Unsoed, UIN, dsb.">
+                            <label class="block text-slate-700 text-xs font-bold mb-1.5">Nomor WhatsApp (Aktif)</label>
+                            <input type="tel" id="reg-wa" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:ring-2 focus:ring-brand-emerald outline-none" placeholder="081234567890">
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-gray-300 text-sm mb-2">Nomor WhatsApp</label>
-                        <input type="tel" id="reg-wa" required class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-accent" placeholder="Contoh: 08123456789">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-700 text-xs font-bold mb-1.5">Pilih Pangkalan Komisariat</label>
+                            <select id="reg-komsat" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:ring-2 focus:ring-brand-emerald outline-none">
+                                <option value="Komsat Soedirman (UNSOED)">Komsat Soedirman (UNSOED)</option>
+                                <option value="Komsat Khalid Bin Walid (UIN SAIZU)">Komsat Khalid Bin Walid (UIN SAIZU)</option>
+                                <option value="Komsat Al-Aqsha (UMP)">Komsat Al-Aqsha (UMP)</option>
+                                <option value="Daerah / Kampus Lainnya">Daerah / Kampus Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-xs font-bold mb-1.5">Program Studi & Angkatan</label>
+                            <input type="text" id="reg-prodi" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:ring-2 focus:ring-brand-emerald outline-none" placeholder="Hukum 2024">
+                        </div>
                     </div>
-                    <button type="submit" class="w-full flex justify-center items-center gap-2 bg-brand-accent hover:bg-yellow-400 text-brand-dark font-bold text-lg py-4 rounded-lg transition-colors mt-4 shadow-lg">
-                        Daftar & Hubungi Admin
+
+                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-emerald text-white font-bold text-xs py-4 rounded-2xl transition duration-300 shadow-lg flex items-center justify-center gap-2 mt-6">
+                        <span>Kirim Booking via WhatsApp Admin</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- 8. Footer -->
-    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-brand-dark">
+    <!-- 8. Footer Minimalis Clean -->
+    <footer class="bg-brand-dark text-white pt-16 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="md:col-span-2">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="bg-white rounded-xl p-2 inline-flex shadow-md">
-                            <img src="./12.png" alt="Logo KAMMI Banyumas Raya" onerror="this.outerHTML='<span class=&quot;font-heading text-2xl text-brand-dark&quot;>KAMMI Banyumas Raya</span>'" class="h-12 w-auto object-contain">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-brand-emerald flex items-center justify-center text-white font-heading font-extrabold text-xl shadow">
+                            K
                         </div>
+                        <span class="font-heading font-extrabold text-xl text-white">KAMMI Banyumas Raya</span>
                     </div>
-                    <p class="text-gray-400 leading-relaxed max-w-sm mb-6">
-                        Menjadi wadah pembentukan generasi muda muslim yang tangguh, berakhlak mulia, dan berkontribusi nyata bagi peradaban bangsa.
+                    <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+                        Wadah pembentukan kepemimpinan mahasiswa muslim yang bertakwa, cerdas, dan profesional di wilayah Banyumas Raya.
                     </p>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Tautan Cepat</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#profil" class="hover:text-brand-accent transition">Profil Daerah</a></li>
-                        <li><a href="#komisariat" class="hover:text-brand-accent transition">Direktori Komisariat</a></li>
-                        <li><a href="#media" class="hover:text-brand-accent transition">Media</a></li>
+                    <h4 class="text-brand-gold font-bold mb-3 text-xs uppercase tracking-widest">Navigasi Platform</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#beranda" class="hover:text-white transition">Beranda Utama</a></li>
+                        <li><a href="#dna-quiz" class="hover:text-white transition">Kader DNA Quiz</a></li>
+                        <li><a href="#komisariat" class="hover:text-white transition">Direktori Komsat</a></li>
+                        <li><a href="#lookbook" class="hover:text-white transition">Lookbook Aksi</a></li>
+                        <li><a href="#media" class="hover:text-white transition">Substack Ruang Bara</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Kontak</h4>
-                    <ul class="space-y-3 text-gray-400">
-                        <li>Sekretariat Purwokerto, Banyumas.</li>
-                        <li>humas@kammibanyumasraya.or.id</li>
-                    </ul>
+                    <h4 class="text-brand-gold font-bold mb-3 text-xs uppercase tracking-widest">Sekretariat Pusat</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-2">Purwokerto, Kabupaten Banyumas, Jawa Tengah.</p>
+                    <p class="text-xs text-slate-400">Email: humas@kammibanyumasraya.or.id</p>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 flex text-gray-500 text-sm">
-                <p>&copy; 2026 KAMMI Banyumas Raya.</p>
+            <div class="border-t border-emerald-950 pt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500 gap-4">
+                <p>&copy; 2026 KAMMI Banyumas Raya. All Rights Reserved.</p>
+                <p>Designed with Clean Aesthetic UX.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal Admin Dashboard -->
-    <div id="admin-modal" class="fixed inset-0 bg-black/60 z-[100] hidden items-center justify-center md:justify-end fade-in">
-        <div class="bg-white w-full h-full md:w-[450px] shadow-2xl flex flex-col">
-            <div class="bg-brand-dark p-6 flex justify-between items-center text-white">
+    <!-- Floating Trigger Dashboard Admin -->
+    <div class="fixed bottom-5 right-5 z-40">
+        <button id="open-admin-btn" class="bg-brand-dark text-brand-gold hover:text-white p-3.5 rounded-full shadow-2xl border border-brand-gold/40 flex items-center gap-2 font-bold text-xs transition-all hover:scale-105 group">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+            <span class="hidden group-hover:inline pr-1">Portal Login CMS</span>
+        </button>
+    </div>
+
+    <!-- Modal Login Account Admin & Management Panel -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/60 z-[100] hidden items-center justify-center md:justify-end fade-in backdrop-blur-sm">
+        <div class="bg-white w-full h-full md:w-[480px] shadow-2xl flex flex-col border-l border-slate-200">
+            
+            <!-- Modal Header -->
+            <div class="bg-brand-dark p-6 flex justify-between items-center text-white border-b border-brand-gold/30">
                 <div>
-                    <h3 class="font-heading text-2xl font-bold">Dashboard Admin</h3>
-                    <p class="text-sm text-brand-accent">Sistem Manajemen Konten</p>
+                    <h3 class="font-heading text-lg font-bold text-white">System CMS Portal</h3>
+                    <p id="admin-header-subtitle" class="text-xs text-brand-gold">Silakan Autentikasi Pengurus</p>
                 </div>
-                <button id="close-admin" class="text-white hover:text-brand-accent transition"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button id="close-admin" class="text-slate-300 hover:text-white transition p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
-            <div class="bg-gray-100 p-4 border-b flex items-center justify-between">
-                <span class="text-sm font-semibold text-gray-700">Akses Anda:</span>
-                <select id="role-selector" class="bg-white border text-sm rounded px-3 py-1 font-bold text-brand-dark focus:outline-none">
-                    <option value="admin_daerah">Admin Daerah</option>
-                    <option value="penulis_komisariat">Penulis Komisariat</option>
-                </select>
-            </div>
-            <div class="flex-1 overflow-y-auto p-6 space-y-8">
-                <div id="admin-sambutan-section" class="space-y-4">
-                    <h4 class="font-bold text-lg border-b pb-2">Edit Sambutan Ketua</h4>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">Nama Ketua</label><input type="text" id="input-welcome-name" class="w-full border rounded px-3 py-2 text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">Periode</label><input type="text" id="input-welcome-period" class="w-full border rounded px-3 py-2 text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">URL Foto</label><input type="text" id="input-welcome-img" class="w-full border rounded px-3 py-2 text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">Isi Sambutan</label><textarea id="input-welcome-text" rows="3" class="w-full border rounded px-3 py-2 text-sm"></textarea></div>
-                    <button id="btn-save-welcome" class="w-full bg-brand-light text-white font-bold py-2 rounded hover:bg-brand-dark transition text-sm">Simpan Sambutan</button>
-                </div>
-                <div class="space-y-4">
-                    <h4 class="font-bold text-lg border-b pb-2">Tambah Berita</h4>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">Judul Berita</label><input type="text" id="input-news-title" class="w-full border rounded px-3 py-2 text-sm"></div>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">Kategori</label>
-                        <select id="input-news-cat" class="w-full border rounded px-3 py-2 text-sm">
-                            <option value="Humas Daerah">Humas Daerah</option>
-                            <option value="Sospol Daerah">Sospol Daerah</option>
-                            <option value="Komsat Soedirman">Komsat Soedirman</option>
-                            <option value="Komsat Khalid">Komsat Khalid</option>
-                        </select>
+
+            <!-- LOGIN VIEW SCREEN (Default State) -->
+            <div id="login-screen" class="flex-1 p-6 flex flex-col justify-center space-y-5">
+                <div class="text-center mb-2">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-dark text-brand-gold flex items-center justify-center font-heading font-extrabold text-2xl mx-auto shadow-md border border-brand-gold/30 mb-3">
+                        K
                     </div>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">Deskripsi Singkat</label><textarea id="input-news-desc" rows="2" class="w-full border rounded px-3 py-2 text-sm"></textarea></div>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">URL Gambar</label><input type="text" id="input-news-img" class="w-full border rounded px-3 py-2 text-sm"></div>
-                    <button id="btn-save-news" class="w-full bg-brand-light text-white font-bold py-2 rounded hover:bg-brand-dark transition text-sm">Publikasikan</button>
+                    <h4 class="font-heading font-extrabold text-lg text-slate-800">Login Management Humed</h4>
+                    <p class="text-xs text-slate-500">Masukkan kredensial akun KAMDA atau Humed Komisariat Anda.</p>
                 </div>
-                <div id="admin-gallery-section" class="space-y-4">
-                    <h4 class="font-bold text-lg border-b pb-2">Tambah Infografis</h4>
-                    <div><label class="block text-xs font-semibold text-gray-500 mb-1">URL Gambar</label><input type="text" id="input-gallery-img" class="w-full border rounded px-3 py-2 text-sm"></div>
-                    <button id="btn-save-gallery" class="w-full bg-brand-light text-white font-bold py-2 rounded text-sm">Unggah</button>
+
+                <form id="form-login" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Username Akun</label>
+                        <input type="text" id="login-username" required placeholder="Contoh: kamda atau komsat_soedirman" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-2 focus:ring-brand-emerald">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Password Access</label>
+                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-2 focus:ring-brand-emerald">
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-dark hover:bg-brand-emerald text-white font-bold py-3 rounded-xl transition text-xs shadow-md">
+                        Masuk ke Dashboard CMS
+                    </button>
+                </form>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-[11px] text-amber-900 leading-relaxed">
+                    <p class="font-bold mb-1">🔑 Demo Akun Kredensial Login:</p>
+                    <ul class="list-disc list-inside space-y-0.5 text-[10px]">
+                        <li><strong>KAMDA (Full):</strong> User: <code class="bg-amber-100 px-1 rounded">kamda</code> | Pass: <code class="bg-amber-100 px-1 rounded">banyumas2026</code></li>
+                        <li><strong>Komsat UNSOED:</strong> User: <code class="bg-amber-100 px-1 rounded">komsat_soedirman</code> | Pass: <code class="bg-amber-100 px-1 rounded">soedirman2026</code></li>
+                        <li><strong>Komsat UIN SAIZU:</strong> User: <code class="bg-amber-100 px-1 rounded">komsat_khalid</code> | Pass: <code class="bg-amber-100 px-1 rounded">khalid2026</code></li>
+                    </ul>
                 </div>
-                <div class="pt-6 border-t"><button id="btn-reset-data" class="w-full bg-red-50 text-red-600 border border-red-200 font-bold py-2 rounded text-sm">Reset Data</button></div>
+            </div>
+
+            <!-- DASHBOARD EDITOR SCREEN (After Successful Login) -->
+            <div id="dashboard-screen" class="hidden flex-1 flex flex-col overflow-hidden">
+                <div class="bg-slate-100 px-6 py-3 border-b flex items-center justify-between text-xs">
+                    <div>
+                        <span class="text-slate-500 text-[10px] block">Session Akun:</span>
+                        <span id="session-user-badge" class="font-bold text-brand-dark text-xs">Admin KAMDA</span>
+                    </div>
+                    <button id="btn-logout" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 font-bold border border-red-200 hover:bg-red-100 text-[10px] transition">
+                        Logout Session 🚪
+                    </button>
+                </div>
+
+                <div class="flex-1 overflow-y-auto p-6 space-y-6 text-left">
+                    
+                    <!-- Section A: Feature Accessible by KAMDA Only -->
+                    <div id="section-kamda-only" class="space-y-4">
+                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-3">
+                            <h4 class="font-bold text-xs text-brand-dark uppercase tracking-wider border-b border-emerald-200 pb-2">Edit Hero Banner & Sambutan KAMDA</h4>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-600 mb-1">URL Foto Banner Utama</label>
+                                <input type="text" id="input-hero-banner" class="w-full border rounded-xl px-3 py-2 text-xs outline-none bg-white">
+                            </div>
+                            <button id="btn-save-hero" class="w-full bg-brand-emerald text-white font-bold py-2 rounded-xl text-xs hover:bg-brand-dark transition">
+                                Simpan Perubahan Hero
+                            </button>
+                        </div>
+
+                        <!-- Add Lookbook Item (KAMDA Only) -->
+                        <div class="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <h4 class="font-bold text-xs text-brand-dark uppercase tracking-wider border-b pb-2">Tambah Lookbook / Infografis Daerah</h4>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Judul Visual</label>
+                                <input type="text" id="input-gallery-title" placeholder="Infografis Sospol" class="w-full border rounded-xl px-3 py-2 text-xs outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Kategori Filter</label>
+                                <select id="input-gallery-cat" class="w-full border rounded-xl px-3 py-2 text-xs outline-none bg-white">
+                                    <option value="aksi">Aksi & Audiensi</option>
+                                    <option value="infografis">Infografis Policy</option>
+                                    <option value="dm1">Dauroh Marhalah</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">URL Foto Image</label>
+                                <input type="text" id="input-gallery-img" placeholder="https://..." class="w-full border rounded-xl px-3 py-2 text-xs outline-none">
+                            </div>
+                            <button id="btn-save-gallery" class="w-full bg-brand-emerald text-white font-bold py-2.5 rounded-xl hover:bg-brand-dark transition text-xs shadow-md">
+                                Tambahkan ke Lookbook
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section B: Publish Article (Accessible by All Roles with Restricted Category Selection) -->
+                    <div class="space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold text-xs text-brand-dark uppercase tracking-wider border-b pb-2">Publikasi Kabar & Rilis</h4>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Judul Artikel / News</label>
+                            <input type="text" id="input-news-title" class="w-full border rounded-xl px-3 py-2 text-xs outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Kategori Publikasi</label>
+                            <select id="input-news-cat" class="w-full border rounded-xl px-3 py-2 text-xs outline-none bg-white font-semibold text-slate-700">
+                                <!-- Options dynamically rendered depending on Role Login -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Ringkasan Narasi</label>
+                            <textarea id="input-news-desc" rows="3" class="w-full border rounded-xl px-3 py-2 text-xs outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">URL Gambar Cover</label>
+                            <input type="text" id="input-news-img" placeholder="https://..." class="w-full border rounded-xl px-3 py-2 text-xs outline-none">
+                        </div>
+                        <button id="btn-save-news" class="w-full bg-brand-dark text-white font-bold py-2.5 rounded-xl hover:bg-brand-emerald transition text-xs shadow-md">
+                            Terbitkan Artikel Sekarang
+                        </button>
+                    </div>
+
+                    <div id="section-reset-kamda" class="pt-2 border-t">
+                        <button id="btn-reset-data" class="w-full bg-red-50 text-red-600 border border-red-200 font-bold py-2 rounded-xl hover:bg-red-100 transition text-xs">
+                            Kembalikan Semua Data Default
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Komsat Detail -->
+    <div id="komisariat-modal" class="fixed inset-0 bg-black/60 z-[100] hidden items-center justify-center p-4 fade-in backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeKomisariatModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <span class="text-brand-emerald font-bold text-[10px] uppercase tracking-widest">Detail Pangkalan Komisariat</span>
+            <h3 id="modal-komsat-title" class="text-2xl font-heading font-extrabold text-brand-dark mt-1 mb-1">Komisariat</h3>
+            <p id="modal-komsat-campus" class="text-xs font-semibold text-slate-500 mb-6">Kampus</p>
+            
+            <div class="space-y-3 text-xs text-slate-600 mb-6 border-y border-slate-100 py-4">
+                <div class="flex items-center justify-between">
+                    <span class="font-medium">Status Pangkalan:</span>
+                    <span class="px-2.5 py-1 bg-emerald-100 text-brand-emerald font-bold rounded-full text-[10px]">Aktif & Terdaftar</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-medium">Kategori Rilis:</span>
+                    <span id="modal-komsat-tag" class="text-brand-emerald font-bold">Tag Komsat</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <a id="modal-komsat-web" href="#" target="_blank" class="w-full block text-center bg-brand-dark text-white font-bold py-3 rounded-2xl hover:bg-brand-emerald transition shadow text-xs">
+                    Kunjungi Website Full Komisariat &rarr;
+                </a>
+                <a id="modal-komsat-wa" href="#" target="_blank" class="w-full block text-center bg-slate-100 text-slate-800 font-bold py-3 rounded-2xl hover:bg-slate-200 transition text-xs">
+                    Chat Admin Komisariat via WhatsApp
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
         const defaultData = {
-            welcome: { name: "Fulan bin Fulan", period: "Ketua Umum KAMMI Banyumas Raya 2026", text: "\"Selamat datang di portal resmi KAMMI...\"", img: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" },
+            heroBanner: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80",
             news: [
-                { title: "Pelantikan Pengurus Daerah KAMMI Banyumas Raya", cat: "Humas Daerah", date: "12 Oktober 2026", desc: "Acara pelantikan berlangsung khidmat...", img: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=600&q=80", color: "bg-brand-dark" },
-                { title: "Audiensi KAMMI Banyumas Bersama DPRD", cat: "Sospol Daerah", date: "05 Oktober 2026", desc: "Delegasi KAMMI menyampaikan beberapa tuntutan...", img: "https://images.unsplash.com/photo-1526976663112-004cb680371a?auto=format&fit=crop&w=600&q=80", color: "bg-brand-light" }
+                {
+                    title: "Rilis Sikap Kebijakan Publik KAMMI Banyumas Raya 2026",
+                    cat: "Rilis Resmi Daerah",
+                    date: "14 Oktober 2026",
+                    desc: "Poin-poin kajian strategis mahasiswa mengenai pembangunan ekonomi inklusif daerah.",
+                    img: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    title: "Pelatihan Kepemimpinan Komsat Soedirman",
+                    cat: "Komsat Soedirman",
+                    date: "08 Oktober 2026",
+                    desc: "Kegiatan rutin mencetak kader akademisi bermoral Rabbani di lingkup Kampus UNSOED.",
+                    img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    title: "Kajian Rutin Peradaban Komsat Khalid Bin Walid",
+                    cat: "Komsat Khalid",
+                    date: "01 Oktober 2026",
+                    desc: "Diskusi lingkaran keilmuan mahasiswa UIN SAIZU dalam merespons wacana publik.",
+                    img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80"
+                }
             ],
-            gallery: ["https://placehold.co/600x800/064E3B/FFF?text=Sikap+KAMMI", "https://placehold.co/600x400/059669/FFF?text=Poster+Kajian", "https://placehold.co/600x900/D4AF37/064E3B?text=Hari+Besar", "https://placehold.co/600x500/064E3B/FFF?text=Aksi+Damai"]
+            gallery: [
+                { title: "Lookbook Editorial 01", cat: "aksi", img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80" },
+                { title: "Policy Infographic", cat: "infografis", img: "https://placehold.co/600x800/052E23/FFF?text=Infografis+Sospol" },
+                { title: "Leadership Camp DM 1", cat: "dm1", img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" }
+            ]
         };
 
-        let siteData = JSON.parse(localStorage.getItem('kammi_web_data'));
-        if (!siteData) { siteData = JSON.parse(JSON.stringify(defaultData)); saveData(); }
+        // User Accounts Database
+        const userAccounts = {
+            'kamda': { pass: 'banyumas2026', role: 'kamda', name: 'Admin KAMDA (Full Access)' },
+            'komsat_soedirman': { pass: 'soedirman2026', role: 'komsat_soedirman', name: 'Humed Komsat Soedirman' },
+            'khalid': { pass: 'khalid2026', role: 'komsat_khalid', name: 'Humed Komsat Khalid Bin Walid' },
+            'komsat_khalid': { pass: 'khalid2026', role: 'komsat_khalid', name: 'Humed Komsat Khalid Bin Walid' }
+        };
 
-        function saveData() { localStorage.setItem('kammi_web_data', JSON.stringify(siteData)); }
+        let currentSessionUser = null;
 
-        function renderApp() {
-            document.getElementById('render-welcome-name').innerText = siteData.welcome.name;
-            document.getElementById('render-welcome-period').innerText = siteData.welcome.period;
-            document.getElementById('render-welcome-text').innerText = siteData.welcome.text;
-            document.getElementById('render-welcome-img').src = siteData.welcome.img;
-
-            const newsGrid = document.getElementById('render-news-grid');
-            newsGrid.innerHTML = '';
-            const newsToRender = [...siteData.news].reverse().slice(0, 2); 
-            newsToRender.forEach(item => {
-                newsGrid.innerHTML += `<article class="group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 bg-white"><div class="h-48 overflow-hidden relative"><span class="absolute top-4 left-4 ${item.color || 'bg-brand-dark'} text-white text-xs font-bold px-3 py-1 rounded-full z-10">${item.cat}</span><img src="${item.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div><div class="p-6 flex flex-col justify-between h-52"><div><div class="text-sm text-gray-500 mb-2"><span>${item.date}</span></div><h3 class="text-xl font-heading font-bold text-gray-900 mb-3 group-hover:text-brand-dark transition-colors line-clamp-2">${item.title}</h3><p class="text-gray-600 text-sm line-clamp-2">${item.desc}</p></div></div></article>`;
-            });
-
-            const galleryGrid = document.getElementById('render-gallery-grid');
-            galleryGrid.innerHTML = '';
-            [...siteData.gallery].reverse().forEach(url => {
-                galleryGrid.innerHTML += `<div class="break-inside-avoid mb-4 group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white cursor-pointer fade-in"><img src="${url}" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"></div>`;
-            });
-
-            document.getElementById('input-welcome-name').value = siteData.welcome.name;
-            document.getElementById('input-welcome-period').value = siteData.welcome.period;
-            document.getElementById('input-welcome-text').value = siteData.welcome.text;
-            document.getElementById('input-welcome-img').value = siteData.welcome.img;
+        let siteData = JSON.parse(localStorage.getItem('kammi_web_data_v3'));
+        if (!siteData) {
+            siteData = JSON.parse(JSON.stringify(defaultData));
+            saveData();
         }
 
-        const adminModal = document.getElementById('admin-modal');
-        
-        // PINTASAN KEYBOARD ADMIN (Ctrl + Shift + K)
-        window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key === 'K') {
-                const password = prompt("Masukkan Kata Sandi Admin:");
-                if (password === "kammi123") {
-                    adminModal.classList.remove('hidden');
-                    adminModal.classList.add('flex');
-                } else if (password !== null) {
-                    alert("Kata sandi salah!");
-                }
+        function saveData() {
+            localStorage.setItem('kammi_web_data_v3', JSON.stringify(siteData));
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-x-full');
+            setTimeout(() => { toast.classList.add('translate-x-full'); }, 3000);
+        }
+
+        // Login Handler
+        document.getElementById('form-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('login-username').value.trim();
+            const p = document.getElementById('login-password').value.trim();
+
+            if (userAccounts[u] && userAccounts[u].pass === p) {
+                currentSessionUser = userAccounts[u];
+                setupDashboardView();
+                showToast(`Selamat datang, ${currentSessionUser.name}!`);
+            } else {
+                alert("Username atau Password salah! Periksa kembali kredensial Anda.");
             }
         });
 
+        function setupDashboardView() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            document.getElementById('dashboard-screen').classList.add('flex');
+            document.getElementById('session-user-badge').innerText = currentSessionUser.name;
+            document.getElementById('admin-header-subtitle').innerText = `Session Active: ${currentSessionUser.role.toUpperCase()}`;
+
+            const kamdaSection = document.getElementById('section-kamda-only');
+            const kamdaReset = document.getElementById('section-reset-kamda');
+            const catSelect = document.getElementById('input-news-cat');
+
+            catSelect.innerHTML = '';
+
+            if (currentSessionUser.role === 'kamda') {
+                kamdaSection.style.display = 'block';
+                kamdaReset.style.display = 'block';
+                document.getElementById('input-hero-banner').value = siteData.heroBanner || defaultData.heroBanner;
+
+                catSelect.innerHTML = `
+                    <option value="Rilis Resmi Daerah">Rilis Resmi KAMDA</option>
+                    <option value="Opini Kader">Opini & Substack</option>
+                    <option value="Komsat Soedirman">Komsat Soedirman</option>
+                    <option value="Komsat Khalid">Komsat Khalid Bin Walid</option>
+                `;
+            } else if (currentSessionUser.role === 'komsat_soedirman') {
+                kamdaSection.style.display = 'none';
+                kamdaReset.style.display = 'none';
+                catSelect.innerHTML = `<option value="Komsat Soedirman">Komsat Soedirman (UNSOED)</option>`;
+            } else if (currentSessionUser.role === 'komsat_khalid') {
+                kamdaSection.style.display = 'none';
+                kamdaReset.style.display = 'none';
+                catSelect.innerHTML = `<option value="Komsat Khalid">Komsat Khalid Bin Walid (UIN SAIZU)</option>`;
+            }
+        }
+
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            currentSessionUser = null;
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('flex');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('login-username').value = '';
+            document.getElementById('login-password').value = '';
+            showToast("Anda telah logout.");
+        });
+
+        document.getElementById('btn-save-hero').addEventListener('click', () => {
+            if(currentSessionUser?.role !== 'kamda') return;
+            const bannerUrl = document.getElementById('input-hero-banner').value;
+            if(!bannerUrl) return alert("Masukkan URL Banner!");
+            siteData.heroBanner = bannerUrl;
+            saveData();
+            document.getElementById('render-hero-banner').src = bannerUrl;
+            showToast("Foto Banner Utama berhasil diperbarui!");
+        });
+
+        function renderGallery(filter = 'all') {
+            const galleryGrid = document.getElementById('render-gallery-grid');
+            galleryGrid.innerHTML = '';
+            
+            const filtered = filter === 'all' 
+                ? siteData.gallery 
+                : siteData.gallery.filter(item => item.cat === filter);
+
+            filtered.forEach(item => {
+                galleryGrid.innerHTML += `
+                    <div class="break-inside-avoid group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 bg-white border border-slate-200/80 cursor-pointer fade-in mb-6">
+                        <div class="relative overflow-hidden">
+                            <img src="${item.img}" alt="${item.title}" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                                <div>
+                                    <span class="text-[9px] font-bold uppercase tracking-widest text-brand-gold px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/20 inline-block mb-1">${item.cat}</span>
+                                    <h4 class="text-white font-heading font-bold text-sm">${item.title}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterGallery(category) {
+            document.querySelectorAll('#lookbook-filters .tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('bg-white', 'text-slate-600');
+            });
+            event.target.classList.add('active');
+            event.target.classList.remove('bg-white', 'text-slate-600');
+            renderGallery(category);
+        }
+
+        function renderNews() {
+            const newsGrid = document.getElementById('render-news-grid');
+            newsGrid.innerHTML = '';
+            [...siteData.news].reverse().forEach(item => {
+                newsGrid.innerHTML += `
+                    <article class="group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200/80 bg-white flex flex-col justify-between">
+                        <div>
+                            <div class="h-48 overflow-hidden relative">
+                                <span class="absolute top-4 left-4 bg-brand-dark text-white text-[9px] font-bold tracking-wider uppercase px-3 py-1 rounded-full z-10 shadow">
+                                    ${item.cat}
+                                </span>
+                                <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-6">
+                                <span class="text-[10px] text-slate-400 font-semibold block mb-2">${item.date}</span>
+                                <h3 class="text-lg font-heading font-bold text-slate-900 mb-2 group-hover:text-brand-emerald transition-colors leading-snug line-clamp-2">
+                                    ${item.title}
+                                </h3>
+                                <p class="text-slate-500 text-xs leading-relaxed line-clamp-3">
+                                    ${item.desc}
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+        }
+
+        let quizAnswers = {};
+        function nextQuiz(step, category) {
+            quizAnswers[step] = category;
+            if (step === 1) {
+                document.getElementById('quiz-step-1').classList.add('hidden');
+                document.getElementById('quiz-step-2').classList.remove('hidden');
+            } else if (step === 2) {
+                document.getElementById('quiz-step-2').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+
+                const titleEl = document.getElementById('quiz-result-title');
+                const descEl = document.getElementById('quiz-result-desc');
+
+                if (category === 'humas') {
+                    titleEl.innerText = "Bidang Media, Desain & Ruang Bara";
+                    descEl.innerText = "Kamu dilahirkan untuk menjadi storyteller visual! Salurkan kreativitas kamu membuat konten opini & publikasi KAMMI.";
+                } else if (category === 'sospol') {
+                    titleEl.innerText = "Bidang Kebijakan Publik & Sospol";
+                    descEl.innerText = "Kamu adalah analis kritis peradaban! Cocok mengawal isu kebangsaan dan riset advokasi masyarakat.";
+                } else {
+                    titleEl.innerText = "Bidang Kaderisasi & Leadership Training";
+                    descEl.innerText = "Kamu adalah perekat ukhuwah! Sangat berbakat merancang event pelatihan kepemimpinan dan mentoring generasi.";
+                }
+            }
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-step-1').classList.remove('hidden');
+        }
+
+        function openKomisariatModal(title, campus, waLink, webUrl) {
+            document.getElementById('modal-komsat-title').innerText = `Komisariat ${title}`;
+            document.getElementById('modal-komsat-campus').innerText = campus;
+            document.getElementById('modal-komsat-tag').innerText = `Komsat ${title}`;
+            document.getElementById('modal-komsat-wa').href = waLink;
+            document.getElementById('modal-komsat-web').href = webUrl || "#";
+            
+            const modal = document.getElementById('komisariat-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeKomisariatModal() {
+            const modal = document.getElementById('komisariat-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        const adminModal = document.getElementById('admin-modal');
+        document.getElementById('open-admin-btn').addEventListener('click', () => {
+            adminModal.classList.remove('hidden');
+            adminModal.classList.add('flex');
+        });
         document.getElementById('close-admin').addEventListener('click', () => {
             adminModal.classList.add('hidden');
             adminModal.classList.remove('flex');
         });
 
-        document.getElementById('role-selector').addEventListener('change', (e) => {
-            const role = e.target.value;
-            const sambutanSec = document.getElementById('admin-sambutan-section');
-            const gallerySec = document.getElementById('admin-gallery-section');
-            const catSelect = document.getElementById('input-news-cat');
-            
-            if (role === 'penulis_komisariat') {
-                sambutanSec.style.display = 'none';
-                gallerySec.style.display = 'none';
-                Array.from(catSelect.options).forEach(opt => { if (opt.value.includes('Daerah')) opt.disabled = true; });
-                catSelect.value = "Komsat Soedirman";
-            } else {
-                sambutanSec.style.display = 'block';
-                gallerySec.style.display = 'block';
-                Array.from(catSelect.options).forEach(opt => opt.disabled = false);
-            }
-        });
+        document.getElementById('btn-save-gallery').addEventListener('click', () => {
+            if(currentSessionUser?.role !== 'kamda') return alert("Akses terbatas untuk KAMDA!");
+            const title = document.getElementById('input-gallery-title').value || "Lookbook Aksi";
+            const cat = document.getElementById('input-gallery-cat').value;
+            const img = document.getElementById('input-gallery-img').value;
+            if(!img) return alert("Masukkan URL gambar!");
 
-        document.getElementById('btn-save-welcome').addEventListener('click', () => {
-            siteData.welcome.name = document.getElementById('input-welcome-name').value;
-            siteData.welcome.period = document.getElementById('input-welcome-period').value;
-            siteData.welcome.text = document.getElementById('input-welcome-text').value;
-            siteData.welcome.img = document.getElementById('input-welcome-img').value;
-            saveData(); renderApp(); alert("Sambutan tersimpan!");
+            siteData.gallery.push({ title, cat, img });
+            saveData();
+            renderGallery();
+            document.getElementById('input-gallery-img').value = '';
+            showToast("Lookbook baru berhasil ditambahkan!");
         });
 
         document.getElementById('btn-save-news').addEventListener('click', () => {
+            if(!currentSessionUser) return alert("Silakan login dulu!");
             const title = document.getElementById('input-news-title').value;
             const cat = document.getElementById('input-news-cat').value;
             const desc = document.getElementById('input-news-desc').value;
             const img = document.getElementById('input-news-img').value;
-            if(!title || !desc) return alert("Mohon lengkapi judul dan deskripsi!");
-            
-            siteData.news.push({
-                title, cat, date: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }), desc,
-                img: img || "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=600&q=80",
-                color: cat.includes('Daerah') ? 'bg-brand-dark' : 'bg-brand-accent text-brand-dark'
-            });
-            saveData(); renderApp();
-            document.getElementById('input-news-title').value = ''; document.getElementById('input-news-desc').value = ''; document.getElementById('input-news-img').value = '';
-            alert("Berita tersimpan!");
-        });
 
-        document.getElementById('btn-save-gallery').addEventListener('click', () => {
-            const imgUrl = document.getElementById('input-gallery-img').value;
-            if(!imgUrl) return alert("Masukkan URL Gambar!");
-            siteData.gallery.push(imgUrl); saveData(); renderApp(); document.getElementById('input-gallery-img').value = ''; alert("Infografis tersimpan!");
+            if(!title || !desc) return alert("Lengkapi judul dan deskripsi!");
+
+            const today = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+            siteData.news.push({
+                title, cat, date: today, desc,
+                img: img || "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=600&q=80"
+            });
+
+            saveData();
+            renderNews();
+            document.getElementById('input-news-title').value = '';
+            document.getElementById('input-news-desc').value = '';
+            showToast(`Artikel berhasil dipublikasikan (${cat})!`);
         });
 
         document.getElementById('btn-reset-data').addEventListener('click', () => {
-            if(confirm("Hapus data?")) { localStorage.removeItem('kammi_web_data'); location.reload(); }
+            if(currentSessionUser?.role !== 'kamda') return;
+            if(confirm("Apakah Anda yakin ingin mereset seluruh data kembali ke default?")) {
+                localStorage.removeItem('kammi_web_data_v3');
+                location.reload();
+            }
         });
 
         document.getElementById('form-rekrutmen').addEventListener('submit', (e) => {
             e.preventDefault();
             const nama = document.getElementById('reg-name').value;
-            const kampus = document.getElementById('reg-campus').value;
             const wa = document.getElementById('reg-wa').value;
-            const teksWa = `Assalamu'alaikum Admin KAMMI Daerah. Saya *${nama}* dari kampus *${kampus}* (WA: ${wa}) ingin mendaftar kegiatan Dauroh Marhalah 1 (DM 1).`;
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(teksWa)}`, '_blank');
+            const komsat = document.getElementById('reg-komsat').value;
+            const prodi = document.getElementById('reg-prodi').value;
+
+            const msg = `Halo Admin KAMMI Banyumas Raya. Saya *${nama}* (${prodi}) bermaksud booking prapendaftaran DM 1 untuk pilihan *${komsat}*. (No WA: ${wa}). Mohon informasi jadwal pelatihan selanjutnya.`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(msg)}`, '_blank');
         });
 
-        renderApp();
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 10) { header.classList.add('shadow-md'); header.classList.remove('shadow-sm', 'border-b'); } 
-            else { header.classList.remove('shadow-md'); header.classList.add('shadow-sm', 'border-b'); }
-        });
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        window.onload = function() {
+            if(siteData.heroBanner) {
+                document.getElementById('render-hero-banner').src = siteData.heroBanner;
+            }
+            renderGallery();
+            renderNews();
+        };
     </script>
 </body>
 </html>
